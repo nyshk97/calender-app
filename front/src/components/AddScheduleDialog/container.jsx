@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 import {
   addScheduleCloseDialog,
   addScheduleSetValue,
+  addScheduleOpenDialog,
 } from "../../redux/addSchedule/actions";
+import { schedulesAddItem } from "../../redux/schedules/actions";
 
 const mapStateToProps = (state) => ({ schedule: state.addSchedule });
 
@@ -14,6 +16,25 @@ const mapDispatchToProps = (dispatch) => ({
   setSchedule: (value) => {
     dispatch(addScheduleSetValue(value));
   },
+  saveSchedule: (schedule) => {
+    dispatch(schedulesAddItem(schedule));
+    dispatch(addScheduleOpenDialog());
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddScheduleDialog);
+const mergeProps = (stateProps, dispatchProps) => ({
+  ...stateProps,
+  ...dispatchProps,
+  saveSchedule: () => {
+    const {
+      schedule: { form: schedule },
+    } = stateProps;
+    dispatchProps.saveSchedule(schedule);
+  },
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps
+)(AddScheduleDialog);
