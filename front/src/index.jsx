@@ -10,6 +10,7 @@ import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import AddScheduleDialog from "./components/AddScheduleDialog/container";
 import CurrentScheduleDialog from "./components/CurrentScheduleDialog/container";
 import thunk from "redux-thunk";
+import ErrorSnackbar from "./components/ErrorSnackbar/contaienr";
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -20,6 +21,7 @@ const App = () => (
       <CalendarBoard />
       <AddScheduleDialog />
       <CurrentScheduleDialog />
+      <ErrorSnackbar />
     </MuiPickersUtilsProvider>
   </Provider>
 );
